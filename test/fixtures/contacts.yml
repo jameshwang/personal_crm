@@ -1,0 +1,46 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  phone: MyString
+  company: MyString
+  job_title: MyString
+  notes: MyText
+
+two:
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  phone: MyString
+  company: MyString
+  job_title: MyString
+  notes: MyText
+
+# Test contacts with different scenarios
+
+john_doe:
+  first_name: John
+  last_name: Doe
+  email: john@example.com
+  phone: "1234567890"
+  job_title: Software Engineer
+  company: Tech Corp
+  notes: Regular client meeting every month
+
+jane_smith:
+  first_name: Jane
+  last_name: Smith
+  email: jane@example.com
+  phone: "0987654321"
+  job_title: Project Manager
+  company: Management Inc
+  notes: Prefers email communication
+
+no_company:
+  first_name: Bob
+  last_name: Wilson
+  email: bob@example.com
+  phone: "5555555555"
+  notes: New contact

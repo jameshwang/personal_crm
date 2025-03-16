@@ -1,0 +1,52 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="md:flex md:items-center md:justify-between mb-8">
+    <div class="flex-1 min-w-0">
+      <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+        Reminders for <%= @contact.full_name %>
+      </h2>
+    </div>
+  </div>
+
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+    <div class="px-4 py-5 sm:p-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Add New Reminder</h3>
+      <%= render 'form' %>
+    </div>
+  </div>
+
+  <div class="space-y-8">
+    <% if @reminders.any? %>
+      <% if @reminders.upcoming.any? %>
+        <section>
+          <h3 class="text-lg font-medium text-gray-900 mb-4">Upcoming Reminders</h3>
+          <div class="bg-white shadow overflow-hidden sm:rounded-lg divide-y divide-gray-200">
+            <%= render partial: 'reminder', collection: @reminders.upcoming %>
+          </div>
+        </section>
+      <% end %>
+
+      <% if @reminders.past_due.any? %>
+        <section>
+          <h3 class="text-lg font-medium text-red-600 mb-4">Past Due Reminders</h3>
+          <div class="bg-white shadow overflow-hidden sm:rounded-lg divide-y divide-gray-200">
+            <%= render partial: 'reminder', collection: @reminders.past_due %>
+          </div>
+        </section>
+      <% end %>
+
+      <% if @reminders.completed.any? %>
+        <section>
+          <h3 class="text-lg font-medium text-green-600 mb-4">Completed Reminders</h3>
+          <div class="bg-white shadow overflow-hidden sm:rounded-lg divide-y divide-gray-200">
+            <%= render partial: 'reminder', collection: @reminders.completed %>
+          </div>
+        </section>
+      <% end %>
+    <% else %>
+      <div class="text-center py-12">
+        <h3 class="mt-2 text-sm font-medium text-gray-900">No reminders</h3>
+        <p class="mt-1 text-sm text-gray-500">Get started by creating a new reminder above.</p>
+      </div>
+    <% end %>
+  </div>
+</div>

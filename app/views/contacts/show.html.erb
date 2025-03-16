@@ -1,0 +1,146 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="md:flex md:items-center md:justify-between mb-8">
+    <div class="flex-1 min-w-0">
+      <div class="flex items-center">
+        <div class="h-16 w-16 flex-shrink-0">
+          <span class="inline-flex h-16 w-16 items-center justify-center rounded-full bg-gray-500">
+            <span class="text-2xl font-medium leading-none text-white"><%= @contact.first_name[0] %></span>
+          </span>
+        </div>
+        <div class="ml-4">
+          <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+            <%= @contact.full_name %>
+          </h2>
+          <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
+            <% if @contact.job_title.present? %>
+              <div class="mt-2 flex items-center text-sm text-gray-500">
+                <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
+                  <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
+                </svg>
+                <%= @contact.job_title %>
+              </div>
+            <% end %>
+            <% if @contact.company.present? %>
+              <div class="mt-2 flex items-center text-sm text-gray-500">
+                <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd" />
+                </svg>
+                <%= @contact.company %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 flex md:mt-0 md:ml-4">
+      <%= link_to edit_contact_path(@contact), class: "inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+        <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+        </svg>
+        Edit
+      <% end %>
+      <%= link_to contact_reminders_path(@contact), class: "ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+        <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+        </svg>
+        Reminders
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      <div class="px-4 py-5 sm:px-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Contact Details</h3>
+      </div>
+      <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+        <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+          <div class="sm:col-span-1">
+            <dt class="text-sm font-medium text-gray-500">Email</dt>
+            <dd class="mt-1 text-sm text-gray-900">
+              <%= mail_to @contact.email, class: "text-indigo-600 hover:text-indigo-900" %>
+            </dd>
+          </div>
+          <div class="sm:col-span-1">
+            <dt class="text-sm font-medium text-gray-500">Phone</dt>
+            <dd class="mt-1 text-sm text-gray-900">
+              <%= link_to @contact.phone, "tel:#{@contact.phone}", class: "text-indigo-600 hover:text-indigo-900" %>
+            </dd>
+          </div>
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-500">Tags</dt>
+            <dd class="mt-1">
+              <div class="flex flex-wrap gap-2">
+                <% @contact.tags.each do |tag| %>
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                    <%= tag.name %>
+                  </span>
+                <% end %>
+              </div>
+            </dd>
+          </div>
+          <% if @contact.notes.present? %>
+            <div class="sm:col-span-2">
+              <dt class="text-sm font-medium text-gray-500">Notes</dt>
+              <dd class="mt-1 text-sm text-gray-900 whitespace-pre-wrap">
+                <%= @contact.notes %>
+              </dd>
+            </div>
+          <% end %>
+        </dl>
+      </div>
+    </div>
+
+    <div class="space-y-6">
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg reminders-section">
+        <div class="px-4 py-5 sm:px-6">
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Recent Reminders</h3>
+            <%= link_to 'View All Reminders', contact_reminders_path(@contact), class: "text-sm text-indigo-600 hover:text-indigo-900" %>
+          </div>
+        </div>
+        <div class="border-t border-gray-200">
+          <% if @reminders.any? %>
+            <ul role="list" class="divide-y divide-gray-200">
+              <% @reminders.limit(3).each do |reminder| %>
+                <li class="px-4 py-4">
+                  <%= render 'reminders/reminder', reminder: reminder %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <div class="px-4 py-5 sm:px-6 text-center">
+              <p class="text-sm text-gray-500">No reminders yet</p>
+              <%= link_to 'Add a reminder', contact_reminders_path(@contact), class: "mt-1 text-sm text-indigo-600 hover:text-indigo-900" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg interactions-section">
+        <div class="px-4 py-5 sm:px-6">
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Recent Interactions</h3>
+            <%= link_to 'View All Interactions', contact_interactions_path(@contact), class: "text-sm text-indigo-600 hover:text-indigo-900" %>
+          </div>
+        </div>
+        <div class="border-t border-gray-200">
+          <% if @interactions.any? %>
+            <ul role="list" class="divide-y divide-gray-200">
+              <% @interactions.limit(3).each do |interaction| %>
+                <li class="px-4 py-4">
+                  <%= render 'interactions/interaction', interaction: interaction %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <div class="px-4 py-5 sm:px-6 text-center">
+              <p class="text-sm text-gray-500">No interactions recorded yet</p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
