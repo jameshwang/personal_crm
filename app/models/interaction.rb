@@ -1,4 +1,5 @@
 class Interaction < ApplicationRecord
+  belongs_to :user
   belongs_to :contact
 
   VALID_TYPES = ['Call', 'Email', 'Meeting', 'Video Call'].freeze

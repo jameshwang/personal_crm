@@ -1,4 +1,5 @@
 class Contact < ApplicationRecord
+  belongs_to :user
   has_many :interactions, dependent: :destroy
   has_many :reminders, dependent: :destroy
   has_many :contact_tags, dependent: :destroy

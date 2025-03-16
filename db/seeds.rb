@@ -26,100 +26,106 @@ tags = {
   marketing: Tag.create!(name: "Marketing")
 }
 
-# Create contacts
-puts "Creating contacts..."
-contacts = [
+# Create test users
+alice = User.create!(
+  email: 'alice@example.com',
+  password: 'password123',
+  password_confirmation: 'password123'
+)
+
+bob = User.create!(
+  email: 'bob@example.com',
+  password: 'password123',
+  password_confirmation: 'password123'
+)
+
+# Create contacts for Alice
+alice_contacts = [
   {
-    first_name: "Sarah",
-    last_name: "Johnson",
-    email: "sarah.johnson@techcorp.com",
-    phone: "415-555-0123",
-    company: "TechCorp",
-    job_title: "CTO",
-    notes: "Met at SF Tech Conference. Interested in AI solutions.",
-    tags: [tags[:tech], tags[:vip]]
+    first_name: 'John',
+    last_name: 'Doe',
+    email: 'john@example.com',
+    phone: '1234567890',
+    job_title: 'Software Engineer',
+    company: 'Tech Corp',
+    notes: 'Regular client meeting every month'
   },
   {
-    first_name: "Michael",
-    last_name: "Chen",
-    email: "mchen@financeplus.com",
-    phone: "212-555-0456",
-    company: "Finance Plus",
-    job_title: "Investment Director",
-    notes: "Quarterly review scheduled. Potential for expanded partnership.",
-    tags: [tags[:client], tags[:finance]]
-  },
-  {
-    first_name: "Emily",
-    last_name: "Rodriguez",
-    email: "emily.r@marketpro.com",
-    phone: "310-555-0789",
-    company: "MarketPro",
-    job_title: "Marketing Manager",
-    notes: "Discussing Q3 campaign collaboration.",
-    tags: [tags[:marketing], tags[:prospect]]
-  },
-  {
-    first_name: "James",
-    last_name: "Wilson",
-    email: "jwilson@innovatech.com",
-    phone: "650-555-0234",
-    company: "InnovaTech",
-    job_title: "CEO",
-    notes: "Potential strategic partnership opportunity.",
-    tags: [tags[:tech], tags[:vip], tags[:prospect]]
-  },
-  {
-    first_name: "Lisa",
-    last_name: "Thompson",
-    email: "lisa.t@vendex.com",
-    phone: "408-555-0567",
-    company: "Vendex Solutions",
-    job_title: "Sales Director",
-    notes: "Current software vendor. Annual contract renewal in 3 months.",
-    tags: [tags[:vendor], tags[:tech]]
+    first_name: 'Jane',
+    last_name: 'Smith',
+    email: 'jane@example.com',
+    phone: '0987654321',
+    job_title: 'Project Manager',
+    company: 'Management Inc',
+    notes: 'Prefers email communication'
   }
 ]
 
-# Create contacts and their associations
-contacts.each do |contact_data|
-  tags = contact_data.delete(:tags)
-  contact = Contact.create!(contact_data)
-  tags.each { |tag| ContactTag.create!(contact: contact, tag: tag) }
+alice_contacts.each do |contact_data|
+  contact = alice.contacts.create!(contact_data)
+  
+  # Create reminders for each contact
+  alice.reminders.create!(
+    title: "Follow up with #{contact.first_name}",
+    description: "Quarterly check-in",
+    date: Time.current + 1.week,
+    status: 'pending',
+    contact: contact
+  )
+  
+  # Create interactions for each contact
+  alice.interactions.create!(
+    interaction_type: 'Meeting',
+    notes: "Initial meeting with #{contact.first_name}",
+    date: Time.current - 2.days,
+    contact: contact
+  )
 end
 
-# Create some interactions
-puts "Creating interactions..."
-Contact.all.each do |contact|
-  # Create 2-3 interactions for each contact
-  rand(2..3).times do
-    days_ago = rand(1..30)
-    interaction_types = ["Call", "Email", "Meeting", "Video Call"]
-    
-    Interaction.create!(
-      contact: contact,
-      date: days_ago.days.ago,
-      interaction_type: interaction_types.sample,
-      notes: ["Discussed project timeline", "Quarterly review", "Introduction call", "Follow-up meeting", "Contract negotiation"].sample
-    )
-  end
-end
+# Create contacts for Bob
+bob_contacts = [
+  {
+    first_name: 'Michael',
+    last_name: 'Johnson',
+    email: 'michael@example.com',
+    phone: '5551234567',
+    job_title: 'Marketing Director',
+    company: 'Marketing Pro',
+    notes: 'Potential partnership opportunity'
+  },
+  {
+    first_name: 'Sarah',
+    last_name: 'Williams',
+    email: 'sarah@example.com',
+    phone: '5559876543',
+    job_title: 'CEO',
+    company: 'Startup Inc',
+    notes: 'Interested in our enterprise solution'
+  }
+]
 
-# Create some reminders
-puts "Creating reminders..."
-Contact.all.each do |contact|
-  # Create 1-2 reminders for each contact
-  rand(1..2).times do
-    days_ahead = rand(1..30)
-    
-    Reminder.create!(
-      contact: contact,
-      date: days_ahead.days.from_now,
-      title: ["Follow up", "Schedule meeting", "Send proposal", "Contract renewal", "Quarterly review"].sample,
-      description: "Remember to follow up on previous discussion.",
-      status: ["pending", "completed"].sample
-    )
-  end
+bob_contacts.each do |contact_data|
+  contact = bob.contacts.create!(contact_data)
+  
+  # Create reminders for each contact
+  bob.reminders.create!(
+    title: "Follow up with #{contact.first_name}",
+    description: "Monthly check-in",
+    date: Time.current + 3.days,
+    status: 'pending',
+    contact: contact
+  )
+  
+  # Create interactions for each contact
+  bob.interactions.create!(
+    interaction_type: 'Call',
+    notes: "Introduction call with #{contact.first_name}",
+    date: Time.current - 1.week,
+    contact: contact
+  )
 end
 
 puts "Seed data created successfully!"
+puts "Test users created:"
+puts "1. Email: alice@example.com, Password: password123"
+puts "2. Email: bob@example.com, Password: password123"
