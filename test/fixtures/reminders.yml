@@ -1,18 +1,20 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  title: Test Reminder 1
+  description: Test Description 1
+  date: <%= Time.current + 1.day %>
+  status: pending
+  user: one
   contact: one
-  date: 2025-03-15 23:21:49
-  title: MyString
-  description: MyText
-  status: MyString
 
 two:
+  title: Test Reminder 2
+  description: Test Description 2
+  date: <%= Time.current + 2.days %>
+  status: pending
+  user: two
   contact: two
-  date: 2025-03-15 23:21:49
-  title: MyString
-  description: MyText
-  status: MyString
 
 # Test reminders with different statuses and dates
 
@@ -22,6 +24,7 @@ upcoming_reminder:
   description: Discuss Q1 performance and future plans
   date: <%= 1.week.from_now %>
   status: pending
+  user: one
 
 past_due_reminder:
   contact: john_doe
@@ -29,6 +32,7 @@ past_due_reminder:
   description: Check about the proposal
   date: <%= 2.days.ago %>
   status: pending
+  user: one
 
 completed_reminder:
   contact: jane_smith
@@ -36,6 +40,7 @@ completed_reminder:
   description: Initial project kickoff
   date: <%= 1.day.ago %>
   status: completed
+  user: one
 
 future_reminder:
   contact: jane_smith
@@ -43,3 +48,4 @@ future_reminder:
   description: Discuss new terms
   date: <%= 2.months.from_now %>
   status: pending
+  user: one

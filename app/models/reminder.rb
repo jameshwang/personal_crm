@@ -1,9 +1,12 @@
 class Reminder < ApplicationRecord
-  belongs_to :contact
+  belongs_to :user
+  belongs_to :contact, optional: true
   
   validates :title, presence: true
   validates :date, presence: true
   validates :status, presence: true, inclusion: { in: ['pending', 'completed'] }
+  
+  before_validation :set_default_status
   
   scope :upcoming, -> { where(status: 'pending').where('date >= ?', Time.current).order(date: :asc) }
   scope :past_due, -> { where(status: 'pending').where('date < ?', Time.current).order(date: :desc) }
@@ -27,5 +30,11 @@ class Reminder < ApplicationRecord
 
   def completed?
     status == 'completed'
+  end
+
+  private
+
+  def set_default_status
+    self.status ||= 'pending'
   end
 end

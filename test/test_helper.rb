@@ -11,5 +11,18 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+    include Devise::Test::IntegrationHelpers
+
+    def auth_headers(user)
+      headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
+      # Generate JWT token
+      token = Warden::JWTAuth::UserEncoder.new.call(user, :user, nil).first
+      headers['Authorization'] = "Bearer #{token}"
+      headers
+    end
   end
+end
+
+class ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
 end
