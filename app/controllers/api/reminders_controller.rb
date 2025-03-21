@@ -47,11 +47,7 @@ module Api
     end
 
     def reminder_params
-      if params[:reminder].present?
-        params.require(:reminder).permit(:title, :description, :date, :status, :contact_id)
-      else
-        params.permit(:title, :description, :date, :status, :contact_id)
-      end
+      params.require(:reminder).permit(:title, :description, :date, :status, :contact_id)
     end
   end
 end 

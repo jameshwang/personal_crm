@@ -12,7 +12,7 @@ module Api
       if request.headers['Authorization'].present?
         begin
           token = request.headers['Authorization'].split(' ').last
-          payload = Warden::JWTAuth::TokenDecoder.new.call(token)
+          payload = JWT.decode(token, Rails.application.credentials.secret_key_base).first
           @current_user = User.find(payload['sub'])
         rescue JWT::DecodeError => e
           render_error('Invalid token', status: :unauthorized)
